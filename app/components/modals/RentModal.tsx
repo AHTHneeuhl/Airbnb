@@ -9,6 +9,7 @@ import CategoryInput from "../inputs/CategoryInput";
 import { categories } from "../navbar/Categories";
 import Modal from "./Modal";
 import dynamic from "next/dynamic";
+import CountrySelect from "../inputs/CountrySelect";
 
 enum STEPS {
   CATEGORY = 0,
@@ -124,6 +125,22 @@ const RentModal = () => {
     </div>
   );
 
+  if (step === STEPS.LOCATION) {
+    bodyContent = (
+      <div className="flex flex-col gap-8">
+        <Heading
+          title="Where is your place located?"
+          subtitle="Help guests find you!"
+        />
+        <CountrySelect
+          value={location}
+          onChange={(value) => setCustomValue("location", value)}
+        />
+        <Map center={location?.latlng} />
+      </div>
+    );
+  }
+
   return (
     <Modal
       title="Airbnb you home!"
@@ -133,7 +150,7 @@ const RentModal = () => {
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={onClose}
+      onSubmit={onNext}
     />
   );
 };
