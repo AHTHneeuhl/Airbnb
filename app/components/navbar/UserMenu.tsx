@@ -62,9 +62,12 @@ const UserMenu: React.FC<TProps> = ({ currentUser }) => {
                 />
                 <MenuItem
                   label="My favorites"
+                  onClick={() => router.push("/favorites")}
+                />
+                <MenuItem
+                  label="My reservations"
                   onClick={() => router.push("/reservations")}
                 />
-                <MenuItem label="My reservations" onClick={openLoginModal} />
                 <MenuItem label="My properties" onClick={openLoginModal} />
                 <MenuItem label="Airbnb my home" onClick={openRentModal} />
                 <hr />
