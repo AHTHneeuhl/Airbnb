@@ -16,6 +16,7 @@ import { signIn } from "next-auth/react";
 
 const RegisterModal = () => {
   const { isOpen, onClose } = useRegisterModal();
+  const { onOpen: loginModalOpen } = useLoginModal();
   const { onOpen } = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -41,7 +42,10 @@ const RegisterModal = () => {
 
     axios
       .post("/api/register", data)
-      .then(() => onClose())
+      .then(() => {
+        onClose();
+        loginModalOpen();
+      })
       .catch((e) => toast.error("Something weng wrong!"))
       .finally(() => setIsLoading(false));
   };
