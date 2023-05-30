@@ -9,12 +9,15 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import useRentModal from "@/app/hooks/useRentModal";
 import { signOut } from "next-auth/react";
 import { SafeUser } from "@/app/types";
+import { useRouter } from "next/navigation";
 
 type TProps = {
   currentUser?: SafeUser | null;
 };
 
 const UserMenu: React.FC<TProps> = ({ currentUser }) => {
+  const router = useRouter();
+
   const [isOpen, setIsOpen] = useState(false);
   const toggleOpen = useCallback(() => setIsOpen((value) => !value), []);
   const { onOpen: openRegisterModal } = useRegisterModal();
@@ -53,7 +56,10 @@ const UserMenu: React.FC<TProps> = ({ currentUser }) => {
           <div className="flex flex-col cursor-pointer">
             {currentUser ? (
               <>
-                <MenuItem label="My trips" onClick={openLoginModal} />
+                <MenuItem
+                  label="My trips"
+                  onClick={() => router.push("/trips")}
+                />
                 <MenuItem label="My favorites" onClick={openLoginModal} />
                 <MenuItem label="My reservations" onClick={openLoginModal} />
                 <MenuItem label="My properties" onClick={openLoginModal} />
