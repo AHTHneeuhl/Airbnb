@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import Container from "@/app/components/Container";
 import ListingCard from "@/app/components/listings/ListingCard";
 import EmptyState from "@/app/components/EmptyState";
@@ -14,7 +16,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   const listings = await getListings(searchParams);
   const currentUser = await getCurrentUser();
 
-  if (listings.length === 0) {
+  if (!listings.length) {
     return (
       <ClientOnly>
         <EmptyState showReset />
