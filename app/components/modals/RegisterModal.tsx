@@ -1,22 +1,20 @@
 "use client";
 
+import { useLoginModal, useRegisterModal } from "@/app/hooks";
 import axios from "axios";
-import { AiFillGithub } from "react-icons/ai";
-import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
-import useRegisterModal from "@/app/hooks/useRegisterModal";
-import useLoginModal from "@/app/hooks/useLoginModal";
-import Modal from "./Modal";
+import { toast } from "react-hot-toast";
+import { AiFillGithub } from "react-icons/ai";
+import { FcGoogle } from "react-icons/fc";
+import Button from "../Button";
 import Heading from "../Heading";
 import Input from "../inputs/Input";
-import { toast } from "react-hot-toast";
-import Button from "../Button";
-import { signIn } from "next-auth/react";
+import Modal from "./Modal";
 
 const RegisterModal = () => {
   const { isOpen, onClose } = useRegisterModal();
-  const { onOpen: loginModalOpen } = useLoginModal();
   const { onOpen } = useLoginModal();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -44,7 +42,7 @@ const RegisterModal = () => {
       .post("/api/register", data)
       .then(() => {
         onClose();
-        loginModalOpen();
+        onOpen();
       })
       .catch((e) => toast.error("Something weng wrong!"))
       .finally(() => setIsLoading(false));
